@@ -1,0 +1,11 @@
+@tailwind base;
+
+@layer base {
+    a {
+      @apply bg-main;
+    }
+  }
+
+@tailwind components;
+
+@tailwind utilities;

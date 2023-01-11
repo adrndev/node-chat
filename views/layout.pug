@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css') 
+    link(rel='stylesheet', href='/stylesheets/tailwind-style.css') 
+  body(class="font-mono")
+    block content
+    script(src='https://cdn.socket.io/4.5.2/socket.io.js')
+    script(src='/javascripts/scripts.js')
