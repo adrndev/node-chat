@@ -1,11 +1,20 @@
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
-    a {
-      @apply bg-main;
-    }
+  a {
+    @apply bg-main;
+  }
+}
+
+@layer components {
+  #errors > .error {
+    @apply p-4 text-white animate-fade-up bg-custom-red right-0 relative mt-2 pointer-events-auto
+           transition-all sm:mx-0 w-full sm:w-[360px] sm:max-w-[360px] rounded overflow-hidden;
   }
 
-@tailwind components;
-
-@tailwind utilities;
+  #errors > .error::after {
+    @apply absolute content-[''] bottom-0 left-0 animate-progress bg-white h-1;
+  }
+}

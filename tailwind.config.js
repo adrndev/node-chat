@@ -7,6 +7,20 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'fade-up': 'fade-up .3s ease',
+        'progress': 'progress 3s linear'
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': { transform: 'translateY(64px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'progress': {
+          '0%': { width: '0' },
+          '100%': { width: '100%' },
+        }
+      },
       colors: {
         'main': '#00B7FF',
         'custom-red': 'rgb(223, 80, 80)',

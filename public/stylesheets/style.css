@@ -10,3 +10,7 @@
 ::-webkit-scrollbar {
   width: 0;
 }
+
+#send-message-button:active {
+  transform: translateY(3px);
+}

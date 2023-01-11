@@ -17,7 +17,20 @@
     const colorPreview = document.querySelector('#color-preview')
 
     const displayError = (message) => {
-        console.log(message)
+        const el = (document.createElement('div'))
+        el.classList.add('error')
+
+        el.textContent = message
+
+        el.addEventListener('click', el.remove)
+
+        document.querySelector('#errors').appendChild(el)
+
+        document.querySelector('#errors').scrollTo(0, document.querySelector('#errors').scrollHeight)
+
+        setTimeout(() => {
+            el.remove()
+        }, 3000)
     }
 
     setNicknameForm.addEventListener('submit', (ev) => {
@@ -27,7 +40,7 @@
 
         if(nickname.length > 0) {
             socket.emit('set_nickname', messageField.value)
-            sessionStorage.setItem('nickname', nicknameField.value)
+            sessionStorage.setItem('nickname', nickname)
             sessionStorage.setItem('nicknameColor', colorInputButton.value)
     
             setNicknameContent.style.display = 'none'
@@ -51,13 +64,26 @@
     messageForm.addEventListener('submit', (ev) => {
         ev.preventDefault()
 
-        socket.emit('message', {
-            nickname: sessionStorage.getItem('nickname'),
-            nicknameColor: sessionStorage.getItem('nicknameColor'),
-            message: messageField.value
-        })
+        if(!sessionStorage.getItem('nickname')) {
+            setNicknameContent.style.display = 'block'
+            messageField.disabled = true
+            sendMessageButton.disabled = true
 
-        messageField.value = ''
+            return
+        }
+
+        if(messageField.value.trim().length > 0) {
+            socket.emit('message', {
+                nickname: sessionStorage.getItem('nickname'),
+                nicknameColor: sessionStorage.getItem('nicknameColor'),
+                message: messageField.value
+            })
+    
+            messageField.value = ''
+            messageField.focus()
+        } else {
+            displayError('Message cannot be blank.')
+        }
     })
 
     const insertMessage = (message) => {
@@ -77,6 +103,8 @@
     })
 
     socket.on('get_messages', (messages) => {
+        chatContent.innerHTML = ''
+
         for(let message of messages) {
             insertMessage(message)
         }

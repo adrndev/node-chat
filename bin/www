@@ -61,10 +61,12 @@ io.on('connection', (socket) => {
   
 
   socket.on('message', (data) => {
-    data.message = data.message.replace(/\*([^*]+?)\*/g, "<b>$1<\/b>")
-    const message = `<span style="color:${data.nicknameColor}">${data.nickname}</span>: ${data.message}`
-    
-    sendMessage(message)
+    if(data.message && data.nickname) {
+      data.message = data.message.replace(/\*([^*]+?)\*/g, "<b>$1<\/b>")
+      const message = `<span style="color:${data.nicknameColor}">${data.nickname}</span>: ${data.message}`
+      
+      sendMessage(message)
+    }
   })
 });
 
