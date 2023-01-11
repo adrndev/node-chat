@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prod": "NODE_ENV=production node ./bin/www",
     "start": "node ./bin/www",
     "watch": "nodemon --watch views --watch 'public/**/*' --watch bin/* -e js,pug,css -r ts-node/register",
     "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/tailwind-style.css",
